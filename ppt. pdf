@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Anandakrishna R — Portfolio</title>
+  <meta name="description" content="Portfolio of Anandakrishna R — Computer Science, Software Developer, Web Developer" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --glass: rgba(255,255,255,0.12);
+      --glass-strong: rgba(255,255,255,0.2);
+      --text: #f8f8ff;
+      --muted:#d9d9e3;
+      --accent:#ffffff;
+      --chip:#111;
+      --shadow: 0 10px 30px rgba(0,0,0,.25);
+      --radius: 22px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;
+      color:var(--text);
+      overflow-x:hidden;
+      background:#000;
+    }
+
+    /* Rainbow animated background */
+    .bg{
+      position:fixed; inset:0;
+      background: linear-gradient(120deg,
+        #ff0080, #ff8c00, #ffee00, #44ff00, #00e5ff, #6a5cff, #ff00d4);
+      background-size: 400% 400%;
+      animation: shift 18s ease infinite;
+      filter: saturate(120%) brightness(0.9);
+      z-index:-2;
+    }
+    @keyframes shift{
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+    /* Subtle grain/glow */
+    .veil{
+      position:fixed; inset:0;
+      backdrop-filter: blur(20px) saturate(140%);
+      background: radial-gradient(1200px 800px at 10% -10%, rgba(255,255,255,.25), transparent 60%),
+                  radial-gradient(900px 600px at 110% 20%, rgba(255,255,255,.15), transparent 60%),
+                  rgba(0,0,0,.35);
+      z-index:-1;
+    }
+
+    header{
+      max-width:1100px; margin:48px auto 0; padding:0 20px;
+      display:flex; align-items:center; gap:26px; flex-wrap:wrap;
+    }
+    .avatar-wrap{
+      position:relative; width:160px; height:160px; flex:0 0 auto;
+      filter: drop-shadow(0 25px 30px rgba(0,0,0,.45));
+    }
+    .avatar{
+      width:100%; height:100%; border-radius:50%;
+      object-fit:cover; border:4px solid rgba(255,255,255,.6);
+      animation: float 4.8s ease-in-out infinite;
+      background:#111;
+      /* Fallback styling if image doesn't load */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 14px;
+      text-align: center;
+      padding: 10px;
+    }
+    @keyframes float{
+      0%,100%{ transform: translateY(0) }
+      50%{ transform: translateY(-10px) }
+    }
+    .nameblock{
+      flex:1 1 420px;
+      padding:18px 20px;
+      background:var(--glass);
+      border:1px solid rgba(255,255,255,.25);
+      border-radius:var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .nameblock h1{margin:0 0 6px; font-size:clamp(26px,4vw,38px); line-height:1.1}
+    .tagline{margin:0; opacity:.9; font-weight:300}
+    .chips{ margin-top:12px; display:flex; flex-wrap:wrap; gap:8px }
+    .chip{
+      background:rgba(255,255,255,.9); color:#111; font-weight:600;
+      padding:8px 12px; border-radius:999px; font-size:13px;
+      box-shadow: 0 6px 18px rgba(0,0,0,.18);
+    }
+
+    .grid{
+      max-width:1100px; margin:26px auto 70px; padding:0 20px;
+      display:grid; grid-template-columns: repeat(12, 1fr); gap:22px;
+    }
+    .card{
+      grid-column: span 12;
+      background:var(--glass);
+      border:1px solid rgba(255,255,255,.25);
+      border-radius:var(--radius);
+      padding:22px;
+      box-shadow: var(--shadow);
+      transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+    }
+    .card:hover{ transform: translateY(-4px); background:var(--glass-strong); box-shadow: 0 16px 40px rgba(0,0,0,.35) }
+    .card h2{margin:0 0 14px; font-size:clamp(18px,3vw,24px)}
+    .muted{color:var(--muted); font-weight:300}
+
+    .two-col{ display:grid; grid-template-columns:1.2fr 1fr; gap:16px }
+    @media (max-width:900px){ .two-col{ grid-template-columns:1fr } }
+
+    /* Info rows */
+    .info{ display:grid; grid-template-columns:150px auto; gap:10px 16px; }
+    .info div{padding:8px 0; border-bottom:1px dashed rgba(255,255,255,.25)}
+    .info .label{opacity:.85; font-weight:600}
+    .badge{
+      display:inline-block; padding:6px 10px; border-radius:10px;
+      background:rgba(0,0,0,.55); border:1px solid rgba(255,255,255,.25);
+      font-weight:700; letter-spacing:.3px
+    }
+    .highlight{ background:linear-gradient(90deg, rgba(255,255,255,.3), rgba(255,255,255,.1)); padding:4px 10px; border-radius:8px }
+
+    /* Skills */
+    .skills{ display:grid; gap:12px }
+    .skill{ }
+    .skill .row{ display:flex; justify-content:space-between; font-size:14px; margin-bottom:6px }
+    .bar{ height:12px; background:rgba(255,255,255,.28); border-radius:999px; overflow:hidden; }
+    .bar > span{ display:block; height:100%; width:0%; background:linear-gradient(90deg, #fff, #eee); border-radius:inherit; animation: grow 1.2s ease forwards }
+    @keyframes grow{ from{width:0} to{width:var(--w)} }
+
+    /* Certificates */
+    .certs{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px }
+    @media (max-width:900px){ .certs{ grid-template-columns:1fr } }
+    .cert{
+      background:rgba(0,0,0,.45); border:1px solid rgba(255,255,255,.25);
+      border-radius:16px; padding:16px; min-height:140px; position:relative;
+    }
+    .cert a{ color:#111; background:#fff; padding:8px 12px; border-radius:10px; font-weight:700; text-decoration:none }
+    .cert a:hover{ filter:brightness(.95) }
+
+    /* Socials */
+    .socials{ display:flex; gap:12px; flex-wrap:wrap }
+    .socials a{
+      display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:var(--text);
+      background:rgba(0,0,0,.55); border:1px solid rgba(255,255,255,.25); padding:10px 14px; border-radius:14px; font-weight:600;
+      transition: transform .2s ease, background .2s ease
+    }
+    .socials a:hover{ transform: translateY(-3px) scale(1.02); background:rgba(255,255,255,.1) }
+
+    footer{ text-align:center; opacity:.8; padding:30px 10px }
+
+    /* Floating bubbles */
+    .bubbles{ position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:-1 }
+    .bubbles span{
+      position:absolute; bottom:-120px; width:20px; height:20px; border-radius:50%;
+      background:rgba(255,255,255,.15);
+      filter: blur(1px);
+      animation: rise linear infinite;
+    }
+    @keyframes rise{
+      from{ transform: translateY(0) scale(0.8); opacity:.7 }
+      to{ transform: translateY(-120vh) scale(1.6); opacity:0 }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="veil"></div>
+  <div class="bubbles" id="bubbles"></div>
+
+  <header>
+    <div class="avatar-wrap">
+      <!-- Using the provided image file name -->
+      <img src="IMG_20250101_142639_279.jpg" alt="Anandakrishna R" class="avatar" onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 width%3D%22160%22 height%3D%22160%22 viewBox%3D%220 0 160 160%22%3E%3Crect width%3D%22160%22 height%3D%22160%22 fill%3D%22%23111%22%2F%3E%3Ctext x%3D%2250%25%22 y%3D%2250%25%22 dominant-baseline%3D%22middle%22 text-anchor%3D%22middle%22 font-family%3D%22Poppins%22 font-size%3D%2214%22 fill%3D%22white%22%3EAK%3C%2Ftext%3E%3C%2Fsvg%3E'">
+    </div>
+    <div class="nameblock">
+      <h1>Anandakrishna R</h1>
+      <p class="tagline">Computer Science student • Software / Web Developer • Programmer</p>
+      <div class="chips">
+        <span class="chip">Clean Code</span>
+        <span class="chip">MongoDB</span>
+        <span class="chip">Web Dev</span>
+        <span class="chip">Problem Solving</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="grid">
+    <!-- About + Info -->
+    <section class="card two-col">
+      <div>
+        <h2>About</h2>
+        <p class="muted">
+          I’m a Computer Science student focused on building clean, efficient and scalable software.
+          I enjoy full-stack web development, databases, and turning ideas into
+          reliable apps. Constant learner, strong in logic and debugging, and excited to grow into a
+          professional Software Developer.
+        </p>
+        <div class="socials" aria-label="Social links">
+          <!-- Replace with your real links -->
+          <a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="mailto:you@example.com">Email</a>
+        </div>
+      </div>
+      <div>
+        <h2>Profile</h2>
+        <div class="info">
+          <div class="label">NMID (must):</div><div><span class="badge">7F9A5A58B5D8AA998044D72019D3633E</span></div>
+          <div class="label">Register No:</div><div class="highlight">2422K1168</div>
+          <div class="label">Department:</div><div>Computer Science</div>
+          <div class="label">College:</div><div>Government Arts and Science College, Avinashi</div>
+          <div class="label">Location:</div><div>Avinashi, Tamil Nadu, India</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="card">
+      <h2>Skills</h2>
+      <div class="skills">
+        <div class="skill">
+          <div class="row"><strong>HTML/CSS</strong><span class="muted">Advanced</span></div>
+          <div class="bar" style="--w:92%"><span></span></div>
+        </div>
+        <div class="skill">
+          <div class="row"><strong>JavaScript</strong><span class="muted">Intermediate</span></div>
+          <div class="bar" style="--w:80%"><span></span></div>
+        </div>
+        <div class="skill">
+          <div class="row"><strong>MongoDB</strong><span class="muted">Intermediate</span></div>
+          <div class="bar" style="--w:78%"><span></span></div>
+        </div>
+        <div class="skill">
+          <div class="row"><strong>C / C++</strong><span class="muted">Intermediate</span></div>
+          <div class="bar" style="--w:75%"><span></span></div>
+        </div>
+        <div class="skill">
+          <div class="row"><strong>Java</strong><span class="muted">Foundational</span></div>
+          <div class="bar" style="--w:60%"><span></span></div>
+        </div>
+        <div class="skill">
+          <div class="row"><strong>Python</strong><span class="muted">Foundational</span></div>
+          <div class="bar" style="--w:58%"><span></span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Certificates -->
+    <section class="card">
+      <h2>Certificates</h2>
+      <div class="certs">
+        <article class="cert">
+          <h3 style="margin:0 0 6px;">National Mission (NM) Certificate</h3>
+          <p class="muted" style="margin:0 0 12px;">Certificate ID: NME2425ABRU27698446459</p>
+          <!-- Update the href to your actual file path -->
+          <a href="NM_Certificate.pdf" download>View / Download</a>
+        </article>
+
+        <article class="cert">
+          <h3 style="margin:0 0 6px;">MongoDB Basics for Students</h3>
+          <p class="muted" style="margin:0 0 12px;">Issued by MongoDB • 06 Aug 2025</p>
+          <a href="MongoDBBasicsforStudents_Badge.pdf" download>Verify / Badge</a>
+        </article>
+
+        <article class="cert">
+          <h3 style="margin:0 0 6px;">IBM SkillsBuild — Web Development Basics (MDL-261)</h3>
+          <p class="muted" style="margin:0 0 12px;">Completed on 28 Jul 2025</p>
+          <a href="SkillsBuild_Web_Development_Basics.pdf" download>View Certificate</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- Projects (sample placeholders you can replace later) -->
+    <section class="card">
+      <h2>Projects</h2>
+      <p class="muted">Add 2–3 of your best projects here with short descriptions and links.</p>
+      <ul>
+        <li><strong>StudentHub</strong> — Simple full-stack app with Node + MongoDB for managing study notes.</li>
+        <li><strong>Portfolio v1</strong> — This site: responsive UI, animations, and accessibility best practices.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="year"></span> Anandakrishna R • Built with ♥ and vanilla HTML/CSS/JS
+  </footer>
+
+  <script>
+    // Current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Bubble generator
+    const wrap = document.getElementById('bubbles');
+    const R = (min,max) => Math.random()*(max-min)+min;
+    const make = () => {
+      const s = document.createElement('span');
+      const size = R(8, 26);
+      s.style.left = R(-5, 100) + 'vw';
+      s.style.width = s.style.height = size + 'px';
+      s.style.animationDuration = R(8, 18) + 's';
+      s.style.animationDelay = R(0, 6) + 's';
+      s.style.opacity = R(0.2, 0.7);
+      wrap.appendChild(s);
+      // remove after one cycle
+      setTimeout(()=> s.remove(), 20000);
+    };
+    for(let i=0;i<28;i++) make();
+    setInterval(make, 900);
+  </script>
+</body>
+</html>
